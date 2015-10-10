@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Patch-Name: 5
+To-File: 2.apk
+Created-Time: 30 Sep 2015 02:34:56 GMT
+Created-By: 1.0 (ApkPatch)
+Patch-Classes: com.zyq.andfixdemo.MainActivity_CF
+From-File: 5.apk
+

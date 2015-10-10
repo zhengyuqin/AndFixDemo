@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (ApkPatch)
+
+Name: classes.dex
+SHA1-Digest: QrrhCaC7lXDQiblskciydoOgGCw=
+
