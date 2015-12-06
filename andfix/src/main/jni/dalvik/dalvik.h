@@ -49,52 +49,56 @@ typedef int64_t s8;
  * enum.
  */
 enum {
-	ACC_PUBLIC = 0x00000001,       // class, field, method, ic
-	ACC_PRIVATE = 0x00000002,       // field, method, ic
-	ACC_PROTECTED = 0x00000004,       // field, method, ic
-	ACC_STATIC = 0x00000008,       // field, method, ic
-	ACC_FINAL = 0x00000010,       // class, field, method, ic
-	ACC_SYNCHRONIZED = 0x00000020,       // method (only allowed on natives)
-	ACC_SUPER = 0x00000020,       // class (not used in Dalvik)
-	ACC_VOLATILE = 0x00000040,       // field
-	ACC_BRIDGE = 0x00000040,       // method (1.5)
-	ACC_TRANSIENT = 0x00000080,       // field
-	ACC_VARARGS = 0x00000080,       // method (1.5)
-	ACC_NATIVE = 0x00000100,       // method
-	ACC_INTERFACE = 0x00000200,       // class, ic
-	ACC_ABSTRACT = 0x00000400,       // class, method, ic
-	ACC_STRICT = 0x00000800,       // method
-	ACC_SYNTHETIC = 0x00001000,       // field, method, ic
-	ACC_ANNOTATION = 0x00002000,       // class, ic (1.5)
-	ACC_ENUM = 0x00004000,       // class, field, ic (1.5)
-	ACC_CONSTRUCTOR = 0x00010000,       // method (Dalvik only)
-	ACC_DECLARED_SYNCHRONIZED = 0x00020000,       // method (Dalvik only)
-	ACC_CLASS_MASK = (ACC_PUBLIC | ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT
-			| ACC_SYNTHETIC | ACC_ANNOTATION | ACC_ENUM),
-	ACC_INNER_CLASS_MASK = (ACC_CLASS_MASK | ACC_PRIVATE | ACC_PROTECTED
-			| ACC_STATIC),
-	ACC_FIELD_MASK = (ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC
-			| ACC_FINAL | ACC_VOLATILE | ACC_TRANSIENT | ACC_SYNTHETIC
-			| ACC_ENUM),
-	ACC_METHOD_MASK = (ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC
-			| ACC_FINAL | ACC_SYNCHRONIZED | ACC_BRIDGE | ACC_VARARGS
-			| ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT | ACC_SYNTHETIC
-			| ACC_CONSTRUCTOR | ACC_DECLARED_SYNCHRONIZED),
+    ACC_PUBLIC = 0x00000001,       // class, field, method, ic
+    ACC_PRIVATE = 0x00000002,       // field, method, ic
+    ACC_PROTECTED = 0x00000004,       // field, method, ic
+    ACC_STATIC = 0x00000008,       // field, method, ic
+    ACC_FINAL = 0x00000010,       // class, field, method, ic
+    ACC_SYNCHRONIZED = 0x00000020,       // method (only allowed on natives)
+    ACC_SUPER = 0x00000020,       // class (not used in Dalvik)
+    ACC_VOLATILE = 0x00000040,       // field
+    ACC_BRIDGE = 0x00000040,       // method (1.5)
+    ACC_TRANSIENT = 0x00000080,       // field
+    ACC_VARARGS = 0x00000080,       // method (1.5)
+    ACC_NATIVE = 0x00000100,       // method
+    ACC_INTERFACE = 0x00000200,       // class, ic
+    ACC_ABSTRACT = 0x00000400,       // class, method, ic
+    ACC_STRICT = 0x00000800,       // method
+    ACC_SYNTHETIC = 0x00001000,       // field, method, ic
+    ACC_ANNOTATION = 0x00002000,       // class, ic (1.5)
+    ACC_ENUM = 0x00004000,       // class, field, ic (1.5)
+    ACC_CONSTRUCTOR = 0x00010000,       // method (Dalvik only)
+    ACC_DECLARED_SYNCHRONIZED = 0x00020000,       // method (Dalvik only)
+    ACC_CLASS_MASK = (ACC_PUBLIC | ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT
+                      | ACC_SYNTHETIC | ACC_ANNOTATION | ACC_ENUM),
+    ACC_INNER_CLASS_MASK = (ACC_CLASS_MASK | ACC_PRIVATE | ACC_PROTECTED
+                            | ACC_STATIC),
+    ACC_FIELD_MASK = (ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC
+                      | ACC_FINAL | ACC_VOLATILE | ACC_TRANSIENT | ACC_SYNTHETIC
+                      | ACC_ENUM),
+    ACC_METHOD_MASK = (ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC
+                       | ACC_FINAL | ACC_SYNCHRONIZED | ACC_BRIDGE | ACC_VARARGS
+                       | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT | ACC_SYNTHETIC
+                       | ACC_CONSTRUCTOR | ACC_DECLARED_SYNCHRONIZED),
 };
 
 typedef struct DexProto {
-	u4* dexFile; /* file the idx refers to */
-	u4 protoIdx; /* index into proto_ids table of dexFile */
+    u4 *dexFile;
+    /* file the idx refers to */
+    u4 protoIdx; /* index into proto_ids table of dexFile */
 } DexProto;
 
-typedef void (*DalvikBridgeFunc)(const u4* args, void* pResult,
-		const void* method, void* self);
+//http://bbs.pediy.com/showthread.php?p=1256698 未能理解清除
+typedef void (*DalvikBridgeFunc)(const u4 *args, void *pResult,
+                                 const void *method, void *self);
 
 struct Field {
-	void* clazz; /* class in which the field is declared */
-	const char* name;
-	const char* signature; /* e.g. "I", "[C", "Landroid/os/Debug;" */
-	u4 accessFlags;
+    void *clazz;
+    /* class in which the field is declared */
+    const char *name;
+    const char *signature;
+    /* e.g. "I", "[C", "Landroid/os/Debug;" */
+    u4 accessFlags;
 };
 
 struct Method;
@@ -102,187 +106,204 @@ struct ClassObject;
 struct ArrayObject;
 
 typedef struct Object {
-	/* ptr to class object */
-	struct ClassObject* clazz;
+    /* ptr to class object */
+    struct ClassObject *clazz;
 
-	/*
-	 * A word containing either a "thin" lock or a "fat" monitor.  See
-	 * the comments in Sync.c for a description of its layout.
-	 */
-	u4 lock;
+    /*
+     * A word containing either a "thin" lock or a "fat" monitor.  See
+     * the comments in Sync.c for a description of its layout.
+     */
+    u4 lock;
 } Object;
 
 struct InitiatingLoaderList {
-	/* a list of initiating loader Objects; grown and initialized on demand */
-	void** initiatingLoaders;
-	/* count of loaders in the above list */
-	int initiatingLoaderCount;
+    /* a list of initiating loader Objects; grown and initialized on demand */
+    void **initiatingLoaders;
+    /* count of loaders in the above list */
+    int initiatingLoaderCount;
 };
 
 enum PrimitiveType {
-	PRIM_NOT = 0, /* value is a reference type, not a primitive type */
-	PRIM_VOID = 1,
-	PRIM_BOOLEAN = 2,
-	PRIM_BYTE = 3,
-	PRIM_SHORT = 4,
-	PRIM_CHAR = 5,
-	PRIM_INT = 6,
-	PRIM_LONG = 7,
-	PRIM_FLOAT = 8,
-	PRIM_DOUBLE = 9,
-}typedef PrimitiveType;
+    PRIM_NOT = 0, /* value is a reference type, not a primitive type */
+            PRIM_VOID = 1,
+    PRIM_BOOLEAN = 2,
+    PRIM_BYTE = 3,
+    PRIM_SHORT = 4,
+    PRIM_CHAR = 5,
+    PRIM_INT = 6,
+    PRIM_LONG = 7,
+    PRIM_FLOAT = 8,
+    PRIM_DOUBLE = 9,
+} typedef PrimitiveType;
 
 enum ClassStatus {
-	CLASS_ERROR = -1,
+    CLASS_ERROR = -1,
 
-	CLASS_NOTREADY = 0, CLASS_IDX = 1, /* loaded, DEX idx in super or ifaces */
-	CLASS_LOADED = 2, /* DEX idx values resolved */
-	CLASS_RESOLVED = 3, /* part of linking */
-	CLASS_VERIFYING = 4, /* in the process of being verified */
-	CLASS_VERIFIED = 5, /* logically part of linking; done pre-init */
-	CLASS_INITIALIZING = 6, /* class init in progress */
-	CLASS_INITIALIZED = 7, /* ready to go */
-}typedef ClassStatus;
+    CLASS_NOTREADY = 0, CLASS_IDX = 1, /* loaded, DEX idx in super or ifaces */
+            CLASS_LOADED = 2, /* DEX idx values resolved */
+            CLASS_RESOLVED = 3, /* part of linking */
+            CLASS_VERIFYING = 4, /* in the process of being verified */
+            CLASS_VERIFIED = 5, /* logically part of linking; done pre-init */
+            CLASS_INITIALIZING = 6, /* class init in progress */
+            CLASS_INITIALIZED = 7, /* ready to go */
+} typedef ClassStatus;
 
 typedef struct ClassObject {
-	struct Object o; // emulate C++ inheritance, Collin
+    struct Object o; // emulate C++ inheritance, Collin
 
-	/* leave space for instance data; we could access fields directly if we
-	 freeze the definition of java/lang/Class */
-	u4 instanceData[4];
+    /* leave space for instance data; we could access fields directly if we
+     freeze the definition of java/lang/Class */
+    u4 instanceData[4];
 
-	/* UTF-8 descriptor for the class; from constant pool, or on heap
-	 if generated ("[C") */
-	const char* descriptor;
-	char* descriptorAlloc;
+    /* UTF-8 descriptor for the class; from constant pool, or on heap
+     if generated ("[C") */
+    const char *descriptor;
+    char *descriptorAlloc;
 
-	/* access flags; low 16 bits are defined by VM spec */
-	u4 accessFlags;
+    /* access flags; low 16 bits are defined by VM spec */
+    u4 accessFlags;
 
-	/* VM-unique class serial number, nonzero, set very early */
-	u4 serialNumber;
+    /* VM-unique class serial number, nonzero, set very early */
+    u4 serialNumber;
 
-	/* DexFile from which we came; needed to resolve constant pool entries */
-	/* (will be NULL for VM-generated, e.g. arrays and primitive classes) */
-	void* pDvmDex;
+    /* DexFile from which we came; needed to resolve constant pool entries */
+    /* (will be NULL for VM-generated, e.g. arrays and primitive classes) */
+    void *pDvmDex;
 
-	/* state of class initialization */
-	ClassStatus status;
+    /* state of class initialization */
+    ClassStatus status;
 
-	/* if class verify fails, we must return same error on subsequent tries */
-	struct ClassObject* verifyErrorClass;
+    /* if class verify fails, we must return same error on subsequent tries */
+    struct ClassObject *verifyErrorClass;
 
-	/* threadId, used to check for recursive <clinit> invocation */
-	u4 initThreadId;
+    /* threadId, used to check for recursive <clinit> invocation */
+    u4 initThreadId;
 
-	/*
-	 * Total object size; used when allocating storage on gc heap.  (For
-	 * interfaces and abstract classes this will be zero.)
-	 */
-	size_t objectSize;
+    /*
+     * Total object size; used when allocating storage on gc heap.  (For
+     * interfaces and abstract classes this will be zero.)
+     */
+    size_t objectSize;
 
-	/* arrays only: class object for base element, for instanceof/checkcast
-	 (for String[][][], this will be String) */
-	struct ClassObject* elementClass;
+    /* arrays only: class object for base element, for instanceof/checkcast
+     (for String[][][], this will be String) */
+    struct ClassObject *elementClass;
 
-	/* arrays only: number of dimensions, e.g. int[][] is 2 */
-	int arrayDim;
-	PrimitiveType primitiveType;
+    /* arrays only: number of dimensions, e.g. int[][] is 2 */
+    int arrayDim;
+    PrimitiveType primitiveType;
 
-	/* superclass, or NULL if this is java.lang.Object */
-	struct ClassObject* super;
+    /* superclass, or NULL if this is java.lang.Object */
+    struct ClassObject *super;
 
-	/* defining class loader, or NULL for the "bootstrap" system loader */
-	struct Object* classLoader;
+    /* defining class loader, or NULL for the "bootstrap" system loader */
+    struct Object *classLoader;
 
-	struct InitiatingLoaderList initiatingLoaderList;
+    struct InitiatingLoaderList initiatingLoaderList;
 
-	/* array of interfaces this class implements directly */
-	int interfaceCount;
-	struct ClassObject** interfaces;
+    /* array of interfaces this class implements directly */
+    int interfaceCount;
+    struct ClassObject **interfaces;
 
-	/* static, private, and <init> methods */
-	int directMethodCount;
-	struct Method* directMethods;
+    /* static, private, and <init> methods */
+    int directMethodCount;
+    struct Method *directMethods;
 
-	/* virtual methods defined in this class; invoked through vtable */
-	int virtualMethodCount;
-	struct Method* virtualMethods;
+    /* virtual methods defined in this class; invoked through vtable */
+    int virtualMethodCount;
+    struct Method *virtualMethods;
 
-	/*
-	 * Virtual method table (vtable), for use by "invoke-virtual".  The
-	 * vtable from the superclass is copied in, and virtual methods from
-	 * our class either replace those from the super or are appended.
-	 */
-	int vtableCount;
-	struct Method** vtable;
+    /*
+     * Virtual method table (vtable), for use by "invoke-virtual".  The
+     * vtable from the superclass is copied in, and virtual methods from
+     * our class either replace those from the super or are appended.
+     */
+    int vtableCount;
+    struct Method **vtable;
 
 } ClassObject;
 
+//参考该网址：http://blog.csdn.net/roland_sun/article/details/38640297
 typedef struct Method {
-	struct ClassObject *clazz;
-	u4 accessFlags;
+    struct ClassObject *clazz;
+    //表示这个方法定义在哪个类中
+    u4 accessFlags;
 
-	u2 methodIndex;
+    u2 methodIndex;//在方法表中的偏移
 
-	u2 registersSize; /* ins + locals */
-	u2 outsSize;
-	u2 insSize;
+    u2 registersSize; /* ins + locals *///该方法总共用到的寄存器个数，包含入口参数所用到的寄存器，还有方法内部自己用到的其他本地机器寸
+    u2 outsSize;
+    //该方法要调用其他方法时，用作参数传递而使用的寄存器个数
+    u2 insSize;//作为调用方法时，参数传递而使用的寄存器个数
 
-	/* method name, e.g. "<init>" or "eatLunch" */
-	const char* name;
+    /* method name, e.g. "<init>" or "eatLunch" */
+    const char *name;//方法名称
 
-	/*
-	 * Method prototype descriptor string (return and argument types).
-	 *
-	 * TODO: This currently must specify the DexFile as well as the proto_ids
-	 * index, because generated Proxy classes don't have a DexFile.  We can
-	 * remove the DexFile* and reduce the size of this struct if we generate
-	 * a DEX for proxies.
-	 */
-	DexProto prototype;
+    /*
+     * Method prototype descriptor string (return and argument types).
+     *
+     * TODO: This currently must specify the DexFile as well as the proto_ids
+     * index, because generated Proxy classes don't have a DexFile.  We can
+     * remove the DexFile* and reduce the size of this struct if we generate
+     * a DEX for proxies.
+     */
+    DexProto prototype;//方法对应的协议（也就是对该方法调用参数类型、顺序还有返回类型的描述）
 
-	/* short-form method descriptor string */
-	const char* shorty;
+    /* short-form method descriptor string */
+    const char *shorty;//方法对应协议的短表示法，一个字符代表一种类型；
 
-	/*
-	 * The remaining items are not used for abstract or native methods.
-	 * (JNI is currently hijacking "insns" as a function pointer, set
-	 * after the first call.  For internal-native this stays null.)
-	 */
+    /*
+     * The remaining items are not used for abstract or native methods.
+     * (JNI is currently hijacking "insns" as a function pointer, set
+     * after the first call.  For internal-native this stays null.)
+     * 如果这个方法不是Native的话，则这里存放了指向方法具体的Dalvik指令的指针
+     * （这个变量指向的是实际加载到内存中的Dalvik指令，而不是在Dex文件中的）。
+     * 如果这个方法是一个Dalvik虚拟机自带的Native函数（Internal Native）的话，
+     * 则这个变量会是Null。如果这个方法是一个普通的Native函数的话，则这里存放了指
+     * 向JNI实际函数机器码的首地址；
+     */
 
-	/* the actual code */
-	u2* insns;
+    /* the actual code */
+    u2 *insns;
 
-	/* cached JNI argument and return-type hints */
-	int jniArgInfo;
+    /*
+     * cached JNI argument and return-type hints
+     * 这个变量记录了一些预先计算好的信息，从而不需要在调用的时候再通过方法的参数和返回值实时计算了，
+     * 方便了JNI的调用，提高了调用的速度。如果第一位为1（即0x80000000），
+     * 则Dalvik虚拟机会忽略后面的所有信息，强制在调用时实时计算；
+     */
+    int jniArgInfo;
 
-	/*
-	 * Native method ptr; could be actual function or a JNI bridge.  We
-	 * don't currently discriminate between DalvikBridgeFunc and
-	 * DalvikNativeFunc; the former takes an argument superset (i.e. two
-	 * extra args) which will be ignored.  If necessary we can use
-	 * insns==NULL to detect JNI bridge vs. internal native.
-	 */
-	DalvikBridgeFunc nativeFunc;
+    /*
+     * Native method ptr; could be actual function or a JNI bridge.  We
+     * don't currently discriminate between DalvikBridgeFunc and
+     * DalvikNativeFunc; the former takes an argument superset (i.e. two
+     * extra args) which will be ignored.  If necessary we can use
+     * insns==NULL to detect JNI bridge vs. internal native.
+     *
+     * 如果这个方法是一个Dalvik虚拟机自带的Native函数（Internal Native）的话，
+     * 则这里存放了指向JNI实际函数机器码的首地址。如果这个方法是一个普通的Native函数的话，
+     * 则这里将指向一个中间的跳转JNI桥（Bridge）代码．
+     */
+    DalvikBridgeFunc nativeFunc;
 
 #ifdef WITH_PROFILER
-	bool inProfile;
+    bool inProfile;
 #endif
 #ifdef WITH_DEBUGGER
-	short debugBreakpointCount;
+    short debugBreakpointCount;
 #endif
 
-	bool fastJni;
+    bool fastJni;
 
-	/*
-	 * JNI: true if this method has no reference arguments. This lets the JNI
-	 * bridge avoid scanning the shorty for direct pointers that need to be
-	 * converted to local references.
-	 *
-	 * TODO: replace this with a list of indexes of the reference arguments.
-	 */
-	bool noRef;
+    /*
+     * JNI: true if this method has no reference arguments. This lets the JNI
+     * bridge avoid scanning the shorty for direct pointers that need to be
+     * converted to local references.
+     *
+     * TODO: replace this with a list of indexes of the reference arguments.
+     */
+    bool noRef;
 
 } Method;
 
@@ -294,64 +315,87 @@ typedef struct Method {
  * the first char of obj->clazz->name.
  */
 typedef struct ArrayObject {
-	Object obj; /* MUST be first item */
+    Object obj; /* MUST be first item */
 
-	/* number of elements; immutable after init */
-	u4 length;
+    /* number of elements; immutable after init */
+    u4 length;
 
-	/*
-	 * Array contents; actual size is (length * sizeof(type)).  This is
-	 * declared as u8 so that the compiler inserts any necessary padding
-	 * (e.g. for EABI); the actual allocation may be smaller than 8 bytes.
-	 */
-	u8 contents[1];
+    /*
+     * Array contents; actual size is (length * sizeof(type)).  This is
+     * declared as u8 so that the compiler inserts any necessary padding
+     * (e.g. for EABI); the actual allocation may be smaller than 8 bytes.
+     */
+    u8 contents[1];
 } ArrayObject;
 
-typedef void (*DalvikNativeFunc)(const u4* args, jvalue* pResult);
+typedef void (*DalvikNativeFunc)(const u4 *args, jvalue *pResult);
 
+/**
+ * 这个结构体是联系Dalvik层与Native的桥梁
+ * 第一个参数：该函数在Dalvik层的名字，
+ * 第二个参数：
+ */
 typedef struct DalvikNativeMethod_t {
-	const char* name;
-	const char* signature;
-	DalvikNativeFunc fnPtr;
+    const char *name;
+    const char *signature;
+    DalvikNativeFunc fnPtr;
 } DalvikNativeMethod;
 
 /* flags for dvmMalloc */
 enum {
-	ALLOC_DEFAULT = 0x00, ALLOC_DONT_TRACK = 0x01, /* don't add to internal tracking list */
-	ALLOC_NON_MOVING = 0x02,
+    ALLOC_DEFAULT = 0x00, ALLOC_DONT_TRACK = 0x01, /* don't add to internal tracking list */
+            ALLOC_NON_MOVING = 0x02,
 };
 
-static void dalvik_dispatcher(const u4* args, jvalue* pResult,
-		const Method* method, void* self);
-static void* dvm_dlsym(void *hand, const char *name);
-static ArrayObject* boxMethodArgs(const Method* method, const u4* args);
-static void throwNPE(JNIEnv* env, const char* msg);
-static s8 dvmGetArgLong(const u4* args, int elem);
-static bool dvmIsStaticMethod(const Method* method);
-static bool dvmIsPrimitiveClass(const ClassObject* clazz);
+static void dalvik_dispatcher(const u4 *args, jvalue *pResult,
+                              const Method *method, void *self);
+
+static void *dvm_dlsym(void *hand, const char *name);
+
+static ArrayObject *boxMethodArgs(const Method *method, const u4 *args);
+
+static void throwNPE(JNIEnv *env, const char *msg);
+
+static s8 dvmGetArgLong(const u4 *args, int elem);
+
+static bool dvmIsStaticMethod(const Method *method);
+
+static bool dvmIsPrimitiveClass(const ClassObject *clazz);
 
 //typedef void* (*dvmIsStaticMethod_func)(void*);
 
-typedef int (*dvmComputeMethodArgsSize_func)(void*);
-typedef void (*dvmCallMethod_func)(void*, const Method*, void*, void*, void*,
-		...);
+typedef int (*dvmComputeMethodArgsSize_func)(void *);
+
+typedef void (*dvmCallMethod_func)(void *, const Method *, void *, void *, void *,
+                                   ...);
 
 typedef size_t (*dexProtoGetParameterCount_func)(const DexProto *);
-typedef ArrayObject* (*dvmAllocArrayByClass_func)(void*, size_t, int);
-typedef void* (*dvmBoxPrimitive_func)(jvalue, void*);
-typedef void* (*dvmFindPrimitiveClass_func)(const char);
-typedef void (*dvmReleaseTrackedAlloc_func)(void*, void*);
-typedef ClassObject* (*dvmFindArrayClass_func)(const char*, void*);
-//typedef jlong (*dvmGetArgLong_func)(const u4*,int);
-typedef int (*dvmCheckException_func)(void*);
-typedef Object* (*dvmGetException_func)(void*);
-typedef Object* (*dvmCreateReflectMethodObject_func)(const Method*);
 
-typedef ClassObject* (*dvmGetBoxedReturnType_func)(const Method*);
+typedef ArrayObject *(*dvmAllocArrayByClass_func)(void *, size_t, int);
+
+typedef void *(*dvmBoxPrimitive_func)(jvalue, void *);
+
+typedef void *(*dvmFindPrimitiveClass_func)(const char);
+
+typedef void (*dvmReleaseTrackedAlloc_func)(void *, void *);
+
+typedef ClassObject *(*dvmFindArrayClass_func)(const char *, void *);
+
+//typedef jlong (*dvmGetArgLong_func)(const u4*,int);
+typedef int (*dvmCheckException_func)(void *);
+
+typedef Object *(*dvmGetException_func)(void *);
+
+typedef Object *(*dvmCreateReflectMethodObject_func)(const Method *);
+
+typedef ClassObject *(*dvmGetBoxedReturnType_func)(const Method *);
+
 //typedef int (*dvmIsPrimitiveClass_func)(ClassObject*);
-typedef int (*dvmUnboxPrimitive_func)(void*, ClassObject*, void*);
-typedef Object* (*dvmDecodeIndirectRef_func)(void* self, jobject jobj);
-typedef void* (*dvmThreadSelf_func)();
+typedef int (*dvmUnboxPrimitive_func)(void *, ClassObject *, void *);
+
+typedef Object *(*dvmDecodeIndirectRef_func)(void *self, jobject jobj);
+
+typedef void *(*dvmThreadSelf_func)();
 
 dvmComputeMethodArgsSize_func dvmComputeMethodArgsSize_fnPtr;
 //dvmIsStaticMethod_func dvmIsStaticMethod_fnPtr;

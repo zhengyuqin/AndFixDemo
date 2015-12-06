@@ -151,6 +151,7 @@ public class AndFixManager {
 				@Override
 				protected Class<?> findClass(String className)
 						throws ClassNotFoundException {
+					//loadClass()需要结合上下文context
 					Class<?> clazz = dexFile.loadClass(className, this);
 					Util_LOGFile.getInstance().write(TAG + "\n" + "要加载的类是否为null: " + clazz.toString());
 					Log.d(TAG, "要加载的类是否为null: " + clazz.toString());
@@ -199,7 +200,7 @@ public class AndFixManager {
 		MethodReplace methodReplace;
 		String clz;
 		String meth;
-		//找出带有注解的方法名:
+		//找出带有注解的方法名,然后进行一一替换
 		for (Method method : methods) {
 			methodReplace = method.getAnnotation(MethodReplace.class);
 			if (methodReplace == null)

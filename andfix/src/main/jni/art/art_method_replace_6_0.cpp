@@ -56,6 +56,7 @@ void replace_6_0(JNIEnv* env, jobject src, jobject dest) {
 			smeth->declaring_class_->clinit_thread_id_;
 	dmeth->declaring_class_->status_ = smeth->declaring_class_->status_-1;
 
+	// 把原方法的各种属性都改成补丁方法的
 	smeth->declaring_class_ = dmeth->declaring_class_;
 	smeth->dex_cache_resolved_types_ = dmeth->dex_cache_resolved_types_;
 	smeth->access_flags_ = dmeth->access_flags_;
@@ -64,6 +65,7 @@ void replace_6_0(JNIEnv* env, jobject src, jobject dest) {
 	smeth->method_index_ = dmeth->method_index_;
 	smeth->dex_method_index_ = dmeth->dex_method_index_;
 
+	// 实现的指针也替换为新的
 	smeth->ptr_sized_fields_.entry_point_from_interpreter_ =
 			dmeth->ptr_sized_fields_.entry_point_from_interpreter_;
 
@@ -78,6 +80,7 @@ void replace_6_0(JNIEnv* env, jobject src, jobject dest) {
 
 }
 
+//全部替换成public，也可以说java 世界在c是有映射关系的
 void setFieldFlag_6_0(JNIEnv* env, jobject field) {
 	art::mirror::ArtField* artField =
 			(art::mirror::ArtField*) env->FromReflectedField(field);

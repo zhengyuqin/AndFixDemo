@@ -73,11 +73,11 @@
  /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/asm/unistd.h \
  /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/asm/unistd_32.h \
  /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/sys/syscall.h \
- /home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/dalvik/dalvik.h \
- /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/jni.h \
- /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/stdio.h \
  /home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/common.h \
- /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/android/log.h
+ /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/jni.h \
+ /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/android/log.h \
+ /home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/dalvik/dalvik.h \
+ /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/stdio.h
 
 /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/time.h:
 
@@ -225,12 +225,12 @@
 
 /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/sys/syscall.h:
 
-/home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/dalvik/dalvik.h:
+/home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/common.h:
 
 /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/jni.h:
 
-/home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/stdio.h:
-
-/home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/common.h:
-
 /home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/android/log.h:
+
+/home/qin/studyres/MyCodes/AndFixDemo/andfix/src/main/jni/dalvik/dalvik.h:
+
+/home/qin/ndk/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/stdio.h:
