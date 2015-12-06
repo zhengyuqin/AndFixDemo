@@ -331,6 +331,10 @@ typedef struct ArrayObject {
 typedef void (*DalvikNativeFunc)(const u4 *args, jvalue *pResult);
 
 /**
+ *
+ * http://blog.csdn.net/roland_sun/article/details/38640297
+ * http://blog.csdn.net/l173864930/article/details/38456313
+ * http://blog.csdn.net/jiangwei0910410003/article/details/41941393#comments
  * 这个结构体是联系Dalvik层与Native的桥梁
  * 第一个参数：该函数在Dalvik层的名字，
  * 第二个参数：
